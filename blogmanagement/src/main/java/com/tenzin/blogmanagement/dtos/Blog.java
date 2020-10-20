@@ -1,6 +1,7 @@
 package com.tenzin.blogmanagement.dtos;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,10 +15,12 @@ public class Blog {
     private String content;
     private boolean verified;
     private boolean staticPage;
+    private LocalDateTime blogCreated;
     private LocalDateTime blogPosted;
     private LocalDateTime expiryDate;
     private String photoFileName;
     private User user;
+    private List<Hashtag> tags;
 
     public int getBlogId() {
         return blogId;
@@ -59,6 +62,14 @@ public class Blog {
         this.staticPage = staticPage;
     }
 
+    public LocalDateTime getBlogCreated() {
+        return blogCreated;
+    }
+
+    public void setBlogCreated(LocalDateTime blogCreated) {
+        this.blogCreated = blogCreated;
+    }
+
     public LocalDateTime getBlogPosted() {
         return blogPosted;
     }
@@ -75,6 +86,14 @@ public class Blog {
         this.expiryDate = expiryDate;
     }
 
+    public String getPhotoFileName() {
+        return photoFileName;
+    }
+
+    public void setPhotoFileName(String photoFileName) {
+        this.photoFileName = photoFileName;
+    }
+
     public User getUser() {
         return user;
     }
@@ -83,17 +102,28 @@ public class Blog {
         this.user = user;
     }
 
+    public List<Hashtag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Hashtag> tags) {
+        this.tags = tags;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 83 * hash + this.blogId;
-        hash = 83 * hash + Objects.hashCode(this.title);
-        hash = 83 * hash + Objects.hashCode(this.content);
-        hash = 83 * hash + (this.verified ? 1 : 0);
-        hash = 83 * hash + (this.staticPage ? 1 : 0);
-        hash = 83 * hash + Objects.hashCode(this.blogPosted);
-        hash = 83 * hash + Objects.hashCode(this.expiryDate);
-        hash = 83 * hash + Objects.hashCode(this.user);
+        hash = 41 * hash + this.blogId;
+        hash = 41 * hash + Objects.hashCode(this.title);
+        hash = 41 * hash + Objects.hashCode(this.content);
+        hash = 41 * hash + (this.verified ? 1 : 0);
+        hash = 41 * hash + (this.staticPage ? 1 : 0);
+        hash = 41 * hash + Objects.hashCode(this.blogCreated);
+        hash = 41 * hash + Objects.hashCode(this.blogPosted);
+        hash = 41 * hash + Objects.hashCode(this.expiryDate);
+        hash = 41 * hash + Objects.hashCode(this.photoFileName);
+        hash = 41 * hash + Objects.hashCode(this.user);
+        hash = 41 * hash + Objects.hashCode(this.tags);
         return hash;
     }
 
@@ -124,6 +154,12 @@ public class Blog {
         if (!Objects.equals(this.content, other.content)) {
             return false;
         }
+        if (!Objects.equals(this.photoFileName, other.photoFileName)) {
+            return false;
+        }
+        if (!Objects.equals(this.blogCreated, other.blogCreated)) {
+            return false;
+        }
         if (!Objects.equals(this.blogPosted, other.blogPosted)) {
             return false;
         }
@@ -133,12 +169,15 @@ public class Blog {
         if (!Objects.equals(this.user, other.user)) {
             return false;
         }
+        if (!Objects.equals(this.tags, other.tags)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Blog{" + "blogId=" + blogId + ", title=" + title + ", content=" + content + ", verified=" + verified + ", staticPage=" + staticPage + ", blogPosted=" + blogPosted + ", expiryDate=" + expiryDate + ", user=" + user + '}';
+        return "Blog{" + "blogId=" + blogId + ", title=" + title + ", content=" + content + ", verified=" + verified + ", staticPage=" + staticPage + ", blogCreated=" + blogCreated + ", blogPosted=" + blogPosted + ", expiryDate=" + expiryDate + ", photoFileName=" + photoFileName + ", user=" + user + ", tags=" + tags + '}';
     }
 
 }
