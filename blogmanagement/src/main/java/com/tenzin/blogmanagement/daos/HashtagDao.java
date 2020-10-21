@@ -22,8 +22,8 @@ public interface HashtagDao {
 
     Hashtag addHashtag(Hashtag hashtag);
 
-    void deleteById(int hashtagId);
+    void deleteHashtag(int hashtagId);
 
-    void updateById(int hashtagId);
+    void updateHashtag(Hashtag hashtag);
 
 }

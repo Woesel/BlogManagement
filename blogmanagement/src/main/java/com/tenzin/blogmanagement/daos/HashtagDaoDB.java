@@ -32,12 +32,18 @@ public class HashtagDaoDB implements HashtagDao {
 
     @Override
     public Hashtag getHashtagByTags(String tag) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            final String SELECT_HASHTAG_BY_TAGS = "SELECT * FROM Hashtag WHERE name=?";
+            return jdbc.queryForObject(SELECT_HASHTAG_BY_TAGS, new HashtagMapper(), tag);
+        } catch (DataAccessException ex) {
+            return null;
+        }
     }
 
     @Override
     public List<Hashtag> getAllHashtags() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_ALL_HASHTAG = "SELECT * FROM Hashtag";
+        return jdbc.query(SELECT_ALL_HASHTAG, new HashtagMapper());
     }
 
     @Override
@@ -52,13 +58,19 @@ public class HashtagDaoDB implements HashtagDao {
     }
 
     @Override
-    public void deleteById(int hashtagId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteHashtag(int hashtagId) {
+        final String DELETE_BLOG_HASHTAG = "DELETE FROM Blog_Hashtag WHERE hashtagId=?";
+        final String DELETE_HASHTAG = "DELETE FROM Hashtag WHERE hashtagId=?";
+
+        jdbc.update(DELETE_BLOG_HASHTAG, hashtagId);
+        jdbc.update(DELETE_HASHTAG, hashtagId);
     }
 
     @Override
-    public void updateById(int hashtagId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateHashtag(Hashtag hashtag) {
+        final String UPDATE_HASHTAG = "UPDATE Hashtag SET name=? WHERE hashtagId=?";
+        jdbc.update(UPDATE_HASHTAG, hashtag.getName(), hashtag.getHashtagId());
+
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
