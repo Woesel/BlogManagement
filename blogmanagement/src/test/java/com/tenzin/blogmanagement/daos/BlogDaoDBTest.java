@@ -15,6 +15,10 @@ import java.util.List;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +46,13 @@ public class BlogDaoDBTest {
     @Autowired
     RoleDao roleDao;
 
+    private Role role;
+    private List<Role> listOfRoles;
+    private User userOne;
+    private Hashtag tagOne;
+    private List<Hashtag> listOftags;
+    private Blog blog;
+
     public BlogDaoDBTest() {
     }
 
@@ -55,22 +66,37 @@ public class BlogDaoDBTest {
 
     @BeforeEach
     public void setUp() {
-    }
 
-    /**
-     * Test of adding and getting of Blog by id method, of class BlogDaoDB.
-     */
-    @Test
-    public void testAddAndGetBlogById() {
-        Role role = new Role();
+        List<Blog> blogs = blogDao.getAllBlogs();
+        for (Blog blog : blogs) {
+            blogDao.deleteBlog(blog.getBlogId());
+        }
+        
+        List<User> users = userDao.getAllUsers();
+        for (User user : users) {
+            userDao.deleteUser(user.getUserId());
+        }
+        
+        List<Role> roles = roleDao.getAllRoles();
+        for (Role role : roles) {
+            roleDao.deleteRole(role.getRoleId());
+        }
+        
+        List<Hashtag> tags= hashtagDao.getAllHashtags();
+        for (Hashtag tag : tags) {
+            hashtagDao.deleteHashtag(tag.getHashtagId());
+        }
+
+        role = new Role();
+
         role.setRole("Admin");
 
         role = roleDao.addRole(role);
 
-        List<Role> listOfRoles = new ArrayList<>();
+        listOfRoles = new ArrayList<>();
         listOfRoles.add(role);
 
-        User userOne = new User();
+        userOne = new User();
         userOne.setUserName("first");
         userOne.setFirstName("Ten");
         userOne.setLastName("zin");
@@ -82,28 +108,35 @@ public class BlogDaoDBTest {
 
         userOne = userDao.addUser(userOne);
 
-        Hashtag tagOne = new Hashtag();
+        tagOne = new Hashtag();
         tagOne.setName("#awesome");
 
         tagOne = hashtagDao.addHashtag(tagOne);
 
-        List<Hashtag> listOftags = new ArrayList<>();
+        listOftags = new ArrayList<>();
         listOftags.add(tagOne);
-        
-//        System.out.println(LocalDateTime.now().withNano(0));
 
-        Blog blog = new Blog();
+        blog = new Blog();
         blog.setTitle("First Blog");
         blog.setContent("Bunch of text.");
         blog.setVerified(true);
         blog.setStaticPage(true);
         blog.setBlogPosted(LocalDateTime.now().withNano(0));
         blog.setExpiryDate(LocalDateTime.now().plusDays(1).withNano(0));
-        blog.setBlogCreated(LocalDateTime.now().minusDays(1).withNano(0));
+        blog.setBlogCreated(LocalDateTime.now().minusDays(2).withNano(0));
         blog.setPhotoFileName("C://image.png");
         blog.setUser(userOne);
         blog.setTags(listOftags);
 
+    }
+
+    /**
+     * Test of adding and getting of Blog by id method, of class BlogDaoDB.
+     */
+    @Test
+    public void testAddAndGetBlogById() {
+
+//        System.out.println(LocalDateTime.now().withNano(0));
         blog = blogDao.addBlog(blog);
 
         Blog fromDB = blogDao.getBlogById(blog.getBlogId());
@@ -118,13 +151,13 @@ public class BlogDaoDBTest {
      */
     @Test
     public void testGetBlogByTitle() {
-    }
 
-    /**
-     * Test of addBlog method, of class BlogDaoDB.
-     */
-    @Test
-    public void testAddBlog() {
+        blog = blogDao.addBlog(blog);
+
+        Blog fromDB = blogDao.getBlogByTitle("First Blog");
+
+        assertEquals(blog, fromDB);
+
     }
 
     /**
@@ -132,6 +165,31 @@ public class BlogDaoDBTest {
      */
     @Test
     public void testGetAllBlogs() {
+
+        blog = blogDao.addBlog(blog);
+
+        Blog blog2 = new Blog();
+        blog2.setTitle("First Blog");
+        blog2.setContent("Bunch of text.");
+        blog2.setVerified(true);
+        blog2.setStaticPage(true);
+        blog2.setBlogPosted(LocalDateTime.now().withNano(0));
+        blog2.setExpiryDate(LocalDateTime.now().plusDays(1).withNano(0));
+        blog2.setBlogCreated(LocalDateTime.now().minusDays(2).withNano(0));
+        blog2.setPhotoFileName("C://image.png");
+        blog2.setUser(userOne);
+
+        blog2 = blogDao.addBlog(blog2);
+
+        List<Blog> listOfBlogs = blogDao.getAllBlogs();
+        System.out.println("This is the list" + listOfBlogs);
+
+        assertNotNull(listOfBlogs, "The list should not be empty.");
+        assertEquals(listOfBlogs.size(), 2, " The size of the list should be 2.");
+        assertTrue(listOfBlogs.contains(blog));
+        System.out.println(blog2);
+        assertTrue(listOfBlogs.contains(blog2));
+
     }
 
     /**
@@ -139,6 +197,18 @@ public class BlogDaoDBTest {
      */
     @Test
     public void testDeleteBlog() {
+        blog = blogDao.addBlog(blog);
+
+        Blog fromDB = blogDao.getBlogById(blog.getBlogId());
+
+        assertNotNull(fromDB);
+
+        //ACT
+        blogDao.deleteBlog(blog.getBlogId());
+
+        fromDB = blogDao.getBlogById(blog.getBlogId());
+
+        assertNull(fromDB);
     }
 
     /**
@@ -146,6 +216,24 @@ public class BlogDaoDBTest {
      */
     @Test
     public void testUpdateBlog() {
+
+        blog = blogDao.addBlog(blog);
+
+        Blog fromDB = blogDao.getBlogById(blog.getBlogId());
+
+        assertEquals(blog, fromDB);
+
+        //ACT
+        blog.setContent("New block of text.");
+        blog.setTitle("New Edited Blog");
+
+        blogDao.updateBlog(blog);
+
+        assertNotEquals(blog, fromDB);
+
+        fromDB = blogDao.getBlogById(blog.getBlogId());
+
+        assertEquals(blog, fromDB);
     }
 
 }

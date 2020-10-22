@@ -20,7 +20,7 @@ public interface BlogDao {
 
     Blog addBlog(Blog blog);
 
-    List<Blog> getAllBlogs(Blog blog);
+    List<Blog> getAllBlogs();
 
     void deleteBlog(int blogId);
 
