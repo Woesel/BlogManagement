@@ -17,6 +17,6 @@ public interface ImageDao {
     
     public String updateImage(MultipartFile file, String fileName, String directory);
     
-    public boolean deleteImage(String oldFile);
+    public boolean deleteImage(String fileName);
     
 }
