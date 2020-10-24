@@ -6,8 +6,8 @@ VALUES ("ROLE_ADMIN"),
 		("ROLE_USER");
 DESC user;
 insert into `user`(`username`,`password`, `firstName`, `lastName`, `phone`, `photoFileName`,`enabled`)
-    values("Sarah", "password", "ten", "zin", "1234567890", "c://image.png", 1),
-    ("user", "password", "kel", "sang", "0987654321", "D://image.png", 1);
+    values("Sarah", "password", "ten", "zin", "1234567890", "https://pixy.org/src/109/1090092.png", 1),
+    ("user", "password", "kel", "sang", "0987654321", "https://pixy.org/src/109/1090092.png", 1);
     
 insert into `user_role`(`userId`,`roleId`)
     values(1,1),(1,2),(2,2);
@@ -27,7 +27,8 @@ INSERT INTO hashtag (name) VALUES ("#awesome"),
 DESC blog;
 
 insert into blog(title, content, verified, staticPage,blogPosted, expiryDate, blogCreated, photoFileName, userId) Values
-("First Blog", "xxxxxxxxxxxx", 1, 1, "2020-02-02 ", "2020-02-02", "2020-02-02", "c:/hey.img", 1),
+("First Blog", "xxxxxxxxxxxx", 1, 1, "2020-02-02 ", "2020-02-02", "2020-02-02", "c:/hey.img", 1);
+insert into blog(title, content, verified, staticPage,blogPosted, expiryDate, blogCreated, photoFileName, userId) Values
 ("Second Blog", "The standard Lorem Ipsum passage, used since the 1500s Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
 nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 

@@ -1,5 +1,6 @@
 package com.tenzin.blogmanagement.dtos;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -15,9 +16,9 @@ public class Blog {
     private String content;
     private boolean verified;
     private boolean staticPage;
-    private LocalDateTime blogCreated;
-    private LocalDateTime blogPosted;
-    private LocalDateTime expiryDate;
+    private LocalDate blogCreated;
+    private LocalDate blogPosted;
+    private LocalDate expiryDate;
     private String photoFileName;
     private User user;
     private List<Hashtag> tags;
@@ -62,27 +63,27 @@ public class Blog {
         this.staticPage = staticPage;
     }
 
-    public LocalDateTime getBlogCreated() {
+    public LocalDate getBlogCreated() {
         return blogCreated;
     }
 
-    public void setBlogCreated(LocalDateTime blogCreated) {
+    public void setBlogCreated(LocalDate blogCreated) {
         this.blogCreated = blogCreated;
     }
 
-    public LocalDateTime getBlogPosted() {
+    public LocalDate getBlogPosted() {
         return blogPosted;
     }
 
-    public void setBlogPosted(LocalDateTime blogPosted) {
+    public void setBlogPosted(LocalDate blogPosted) {
         this.blogPosted = blogPosted;
     }
 
-    public LocalDateTime getExpiryDate() {
+    public LocalDate getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(LocalDateTime expiryDate) {
+    public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
     }
 
@@ -113,17 +114,17 @@ public class Blog {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + this.blogId;
-        hash = 41 * hash + Objects.hashCode(this.title);
-        hash = 41 * hash + Objects.hashCode(this.content);
-        hash = 41 * hash + (this.verified ? 1 : 0);
-        hash = 41 * hash + (this.staticPage ? 1 : 0);
-        hash = 41 * hash + Objects.hashCode(this.blogCreated);
-        hash = 41 * hash + Objects.hashCode(this.blogPosted);
-        hash = 41 * hash + Objects.hashCode(this.expiryDate);
-        hash = 41 * hash + Objects.hashCode(this.photoFileName);
-        hash = 41 * hash + Objects.hashCode(this.user);
-        hash = 41 * hash + Objects.hashCode(this.tags);
+        hash = 59 * hash + this.blogId;
+        hash = 59 * hash + Objects.hashCode(this.title);
+        hash = 59 * hash + Objects.hashCode(this.content);
+        hash = 59 * hash + (this.verified ? 1 : 0);
+        hash = 59 * hash + (this.staticPage ? 1 : 0);
+        hash = 59 * hash + Objects.hashCode(this.blogCreated);
+        hash = 59 * hash + Objects.hashCode(this.blogPosted);
+        hash = 59 * hash + Objects.hashCode(this.expiryDate);
+        hash = 59 * hash + Objects.hashCode(this.photoFileName);
+        hash = 59 * hash + Objects.hashCode(this.user);
+        hash = 59 * hash + Objects.hashCode(this.tags);
         return hash;
     }
 

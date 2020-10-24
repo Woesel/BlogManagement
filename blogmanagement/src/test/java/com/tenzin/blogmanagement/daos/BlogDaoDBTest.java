@@ -9,7 +9,7 @@ import com.tenzin.blogmanagement.dtos.Blog;
 import com.tenzin.blogmanagement.dtos.Hashtag;
 import com.tenzin.blogmanagement.dtos.Role;
 import com.tenzin.blogmanagement.dtos.User;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.AfterClass;
@@ -71,18 +71,18 @@ public class BlogDaoDBTest {
         for (Blog blog : blogs) {
             blogDao.deleteBlog(blog.getBlogId());
         }
-        
+
         List<User> users = userDao.getAllUsers();
         for (User user : users) {
             userDao.deleteUser(user.getUserId());
         }
-        
+
         List<Role> roles = roleDao.getAllRoles();
         for (Role role : roles) {
             roleDao.deleteRole(role.getRoleId());
         }
-        
-        List<Hashtag> tags= hashtagDao.getAllHashtags();
+
+        List<Hashtag> tags = hashtagDao.getAllHashtags();
         for (Hashtag tag : tags) {
             hashtagDao.deleteHashtag(tag.getHashtagId());
         }
@@ -121,9 +121,9 @@ public class BlogDaoDBTest {
         blog.setContent("Bunch of text.");
         blog.setVerified(true);
         blog.setStaticPage(true);
-        blog.setBlogPosted(LocalDateTime.now().withNano(0));
-        blog.setExpiryDate(LocalDateTime.now().plusDays(1).withNano(0));
-        blog.setBlogCreated(LocalDateTime.now().minusDays(2).withNano(0));
+        blog.setBlogPosted(LocalDate.now());
+        blog.setExpiryDate(LocalDate.now().plusDays(1));
+        blog.setBlogCreated(LocalDate.now().minusDays(2));
         blog.setPhotoFileName("C://image.png");
         blog.setUser(userOne);
         blog.setTags(listOftags);
@@ -173,9 +173,9 @@ public class BlogDaoDBTest {
         blog2.setContent("Bunch of text.");
         blog2.setVerified(true);
         blog2.setStaticPage(true);
-        blog2.setBlogPosted(LocalDateTime.now().withNano(0));
-        blog2.setExpiryDate(LocalDateTime.now().plusDays(1).withNano(0));
-        blog2.setBlogCreated(LocalDateTime.now().minusDays(2).withNano(0));
+        blog2.setBlogPosted(LocalDate.now());
+        blog2.setExpiryDate(LocalDate.now().plusDays(1));
+        blog2.setBlogCreated(LocalDate.now().minusDays(2));
         blog2.setPhotoFileName("C://image.png");
         blog2.setUser(userOne);
 

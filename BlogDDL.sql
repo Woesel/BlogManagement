@@ -3,6 +3,7 @@ create database BlogFinals;
 
 use BlogFinals;
 
+
 -- /////////////////////////////////////
 -- /////////////USER
 
@@ -44,9 +45,9 @@ CREATE TABLE `Blog`
  `content`    text NOT NULL ,
  `verified`   bit NOT NULL ,
  `staticPage` bit NOT NULL ,
- `blogPosted` datetime NOT NULL ,
- `expiryDate` datetime,
- `blogCreated` datetime NOT NULL,
+ `blogPosted` date NOT NULL,
+ `expiryDate` date,
+ `blogCreated` date NOT NULL,
  `photoFileName` varchar(255) NOT NULL,
  `userId`     INT NOT NULL ,
  
@@ -73,4 +74,6 @@ FOREIGN KEY (`blogId`) REFERENCES `Blog` (`blogId`),
 FOREIGN KEY (`hashtagId`) REFERENCES `Hashtag` (`hashtagId`)
 );
 
+
+SELECT * from user;
 
