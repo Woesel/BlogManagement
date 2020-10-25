@@ -3,7 +3,8 @@ DESC role;
 
 INSERT INTO `Role`(`role`) 
 VALUES ("ROLE_ADMIN"),
-		("ROLE_USER");
+		("ROLE_USER"),
+        ("ROLE_MANAGER");
 DESC user;
 insert into `user`(`username`,`password`, `firstName`, `lastName`, `phone`, `photoFileName`,`enabled`)
     values("Sarah", "password", "ten", "zin", "1234567890", "https://pixy.org/src/109/1090092.png", 1),
@@ -42,6 +43,7 @@ pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui offi
 
 insert into blog_hashtag(blogId, hashtagId) values (1,1),
 													(2,1);
+USE BlogFinals;
 select * from blog_hashtag;
 select * from blog;
 select * from hashtag;

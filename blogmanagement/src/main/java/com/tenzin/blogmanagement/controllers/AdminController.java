@@ -119,15 +119,6 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("editBlog")
-    public String editBlog(HttpServletRequest request, Model model) {
-        Blog blog = blogDao.getBlogById(Integer.parseInt(request.getParameter("blogId")));
-        List<Hashtag> hashtags = hashtagDao.getAllHashtags();
-        
-        model.addAttribute("editBlog", blog);
-        model.addAttribute("hashtags", hashtags);
-        
-        return "editBlog";
-    }
+    
 
 }

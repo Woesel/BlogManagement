@@ -32,7 +32,7 @@ public class HomeController {
 
         try {
             for (Blog blog : blogs) {
-                if (!blog.isVerified()) {
+                if (blog.isVerified()) {
                     verifiedBlogs.add(blog);
                 }
 
@@ -48,22 +48,23 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("searchResult")
-    public String searchByHashtag(HttpServletRequest request, Model model) {
-        int id = Integer.parseInt(request.getParameter("hashtagId"));
-
-        List<Blog> blogsByHashtag = blogDB.getBlogsByHashtag(id);
-//        List<Blog> allBlogs = blogDao.getAllBlogs();
+//    @GetMapping("searchResult")
+//    public String searchByHashtag(HttpServletRequest request, Model model) {
+//        
+//        int id = Integer.parseInt(request.getParameter("hashtagId"));
 //
-//        for (Blog allBlog : allBlogs) {
-//            if (allBlog.getTags().contains(hashtagDao.getHashtagById(id))) {
-//                blogsByHashtag.add(allBlog);
-//            }
-//        }
-
-        model.addAttribute("blogs", blogsByHashtag);
-
-        return "searchResult";
-
-    }
+//        List<Blog> blogsByHashtag = blogDB.getBlogsByHashtag(id);
+////        List<Blog> allBlogs = blogDao.getAllBlogs();
+////
+////        for (Blog allBlog : allBlogs) {
+////            if (allBlog.getTags().contains(hashtagDao.getHashtagById(id))) {
+////                blogsByHashtag.add(allBlog);
+////            }
+////        }
+//
+//        model.addAttribute("blogs", blogsByHashtag);
+//
+//        return "searchResult";
+//
+//    }
 }

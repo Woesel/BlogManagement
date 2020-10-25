@@ -102,22 +102,34 @@ public class BlogController {
         return "redirect:/blog";
     }
     
-    @GetMapping("searchResult")
-    public String searchByHashtag(HttpServletRequest request, Model model) {
-        int id = Integer.parseInt(request.getParameter("hashtagId"));
-        
-        List<Blog> blogsByHashtag = blogDB.getBlogsByHashtag(id);
-//        List<Blog> allBlogs = blogDao.getAllBlogs();
+//    @GetMapping("searchResult")
+//    public String searchByHashtag(HttpServletRequest request, Model model) {
+//        int id = Integer.parseInt(request.getParameter("hashtagId"));
+//        
+//        List<Blog> blogsByHashtag = blogDB.getBlogsByHashtag(id);
+////        List<Blog> allBlogs = blogDao.getAllBlogs();
+////
+////        for (Blog allBlog : allBlogs) {
+////            if (allBlog.getTags().contains(hashtagDao.getHashtagById(id))) {
+////                blogsByHashtag.add(allBlog);
+////            }
+////        }
 //
-//        for (Blog allBlog : allBlogs) {
-//            if (allBlog.getTags().contains(hashtagDao.getHashtagById(id))) {
-//                blogsByHashtag.add(allBlog);
-//            }
-//        }
-
-        model.addAttribute("blogs", blogsByHashtag);
+//        model.addAttribute("blogs", blogsByHashtag);
+//        
+//        return "searchResult";
+//        
+//    }
+    
+    @GetMapping("editBlog")
+    public String editBlog(Integer id, Model model) {
+        Blog blog = blogDao.getBlogById(id);
         
-        return "searchResult";
+        List<Hashtag> hashtags = hashtagDao.getAllHashtags();
         
+        model.addAttribute("blog", blog);
+        model.addAttribute("hashtags", hashtags);
+        
+        return "editBlog";
     }
 }

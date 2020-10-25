@@ -67,16 +67,17 @@
             </div>
 
             <div  class ="container">
-                <div action="displayContentPage" method="GET">
-                    <div id="blogpost" th:each="blog: ${blogs}">
-                        <div th:text="${blog.title}"> Title</div>
-                        <div th:utext="${blog.content}"> Content</div>
-                        <div>
-                            Date posted: 
-                        </div>
+                <!--<div action="displayContentPage" method="GET">-->
+                <div id="blogpost" th:each="blog: ${blogs}">
+                    <div th:text="${blog.title}"> Title</div>
+                    <div th:utext="${blog.content}"> Content</div>
+                    <div><a href="#" th:href="@{/editBlog(id=${blog.blogId})}">Edit</a></div>
+                    <div>
+                        Date posted: 
                     </div>
-
                 </div>
+
+                <!--</div>-->
             </div>
 
 
