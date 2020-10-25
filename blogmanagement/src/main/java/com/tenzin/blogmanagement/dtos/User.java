@@ -2,6 +2,8 @@ package com.tenzin.blogmanagement.dtos;
 
 import java.util.List;
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -10,11 +12,21 @@ import java.util.Objects;
 public class User {
 
     private int userId;
+
+    @NotBlank(message = "UserName must not be empty.")
+    @Size(max = 45, message = "UserName must be less than 45 characters.")
     private String userName;
+    @NotBlank(message = "First name must not be empty.")
+    @Size(max = 45, message = "First name must be less than 45 characters.")
     private String firstName;
+    @NotBlank(message = "Last name must not be empty.")
+    @Size(max = 45, message = "Last name must be less than 45 characters.")
     private String lastName;
+    @NotBlank(message = "Password must not be empty.")
+    @Size(max = 45, message = "Password must be less than 45 characters.")
     private String password;
     private String photoFileName;
+    @Size(max = 10, min = 10, message = "Phone number should be of 10 digits.")
     private String phone;
     private boolean enabled;
     private List<Role> roles;

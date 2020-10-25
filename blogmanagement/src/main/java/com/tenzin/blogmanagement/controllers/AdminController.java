@@ -1,8 +1,12 @@
 package com.tenzin.blogmanagement.controllers;
 
+import com.tenzin.blogmanagement.daos.BlogDao;
+import com.tenzin.blogmanagement.daos.HashtagDao;
 import com.tenzin.blogmanagement.daos.ImageDao;
 import com.tenzin.blogmanagement.daos.RoleDao;
 import com.tenzin.blogmanagement.daos.UserDao;
+import com.tenzin.blogmanagement.dtos.Blog;
+import com.tenzin.blogmanagement.dtos.Hashtag;
 import com.tenzin.blogmanagement.dtos.Role;
 import com.tenzin.blogmanagement.dtos.User;
 import java.time.LocalDateTime;
@@ -30,7 +34,13 @@ public class AdminController {
     UserDao userDao;
 
     @Autowired
-    RoleDao roles;
+    RoleDao roleDao;
+
+    @Autowired
+    BlogDao blogDao;
+
+    @Autowired
+    HashtagDao hashtagDao;
 
     @Autowired
     PasswordEncoder encoder;
@@ -42,6 +52,7 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String displayAdminPage(Model model) {
+
         model.addAttribute("users", userDao.getAllUsers());
         return "admin";
     }
@@ -61,18 +72,62 @@ public class AdminController {
         user.setPhotoFileName(fileLocation);
 
         List<Role> userRoles = new ArrayList<>();
-        userRoles.add(roles.getRoleByRole("ROLE_USER"));
+        userRoles.add(roleDao.getRoleByRole("ROLE_USER"));
         user.setRoles(userRoles);
 
         userDao.addUser(user);
 
         return "redirect:/admin";
     }
-    
+
     @PostMapping("/deleteUser")
     public String deleteUser(Integer id) {
         userDao.deleteUser(id);
         return "redirect:/admin";
+    }
+
+    @GetMapping("/editUser")
+    public String editUserDisplay(Model model, Integer id) {
+        User user = userDao.getUserById(id);
+
+        List<Role> roles = roleDao.getAllRoles();
+
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roles);
+
+        return "editUser";
+
+    }
+
+    @PostMapping(value = "/editUser")
+    public String editUser(String[] roleIdList, Boolean enabled, Integer id) {
+        User user = userDao.getUserById(id);
+        if (enabled != null) {
+            user.setEnabled(enabled);
+        } else {
+            user.setEnabled(false);
+        }
+
+        List<Role> roleList = new ArrayList<>();
+        for (String roleId : roleIdList) {
+            Role role = roleDao.getRoleById(Integer.parseInt(roleId));
+            roleList.add(role);
+        }
+        user.setRoles(roleList);
+        userDao.updateUser(user);
+
+        return "redirect:/admin";
+    }
+
+    @GetMapping("editBlog")
+    public String editBlog(HttpServletRequest request, Model model) {
+        Blog blog = blogDao.getBlogById(Integer.parseInt(request.getParameter("blogId")));
+        List<Hashtag> hashtags = hashtagDao.getAllHashtags();
+        
+        model.addAttribute("editBlog", blog);
+        model.addAttribute("hashtags", hashtags);
+        
+        return "editBlog";
     }
 
 }

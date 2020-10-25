@@ -1,6 +1,8 @@
 package com.tenzin.blogmanagement.dtos;
 
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -9,6 +11,8 @@ import java.util.Objects;
 public class Hashtag {
 
     private int hashtagId;
+     @NotBlank(message = "Hashtag name must not be empty.")
+    @Size(max = 45, message = "Hashtag name must be less than 45 characters.")
     private String name;
 
     public int getHashtagId() {

@@ -27,24 +27,27 @@ INSERT INTO hashtag (name) VALUES ("#awesome"),
 DESC blog;
 
 insert into blog(title, content, verified, staticPage,blogPosted, expiryDate, blogCreated, photoFileName, userId) Values
-("First Blog", "xxxxxxxxxxxx", 1, 1, "2020-02-02 ", "2020-02-02", "2020-02-02", "c:/hey.img", 1);
+("First Blog", "xxxxxxxxxxxx", 1, 1, "2020-10-02 ", "2020-12-02", "2020-11-02", "c:/hey.img", 1);
 insert into blog(title, content, verified, staticPage,blogPosted, expiryDate, blogCreated, photoFileName, userId) Values
 ("Second Blog", "The standard Lorem Ipsum passage, used since the 1500s Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
 nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
 pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
-1, 1, "2020-02-02 ", "2020-02-02", "2020-02-02", "https://pixy.org/1090092/", 1),
+1, 1, "2020-10-02 ", "2020-11-02", "2020-12-02", "https://pixy.org/1090092/", 1),
 ("Second Blog", "The standard Lorem Ipsum passage, used since the 1500s Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
 nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
 pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
 1, 1, "2020-02-02 ", "2020-02-02", "2020-02-02", "https://pixy.org/1090092/", 1);
 
-insert into blog_hashtag(blogId, hashtagId) values ();
-
+insert into blog_hashtag(blogId, hashtagId) values (1,1),
+													(2,1);
+select * from blog_hashtag;
 select * from blog;
 select * from hashtag;
 Select * from blog_hashtag;
 SELECT * FROM Blog WHERE blogId=3;
 
 SELECT h.* from Blog_Hashtag bh JOIN Hashtag h ON bh.hashtagId = h.hashtagId WHERE blogId=3; 
+
+SELECT * from blog;

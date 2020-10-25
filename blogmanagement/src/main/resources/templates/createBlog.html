@@ -15,15 +15,15 @@
     <body class="imageheader">
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Sarah's Blog</a>
+            <a class="navbar-brand" href="home">Sarah's Blog</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="home">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="blog">Blog</a>
@@ -36,12 +36,12 @@
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
                 </form>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="signup"><span class="fa fa-user"></span> Sign Up</a></li>
-                    <li><a href="login"><span class="fa fa-log-in"></span> Login</a></li>
+                    <li><a href="signup"><span class="fa fa-user"></span> Sign Up</a></li>&nbsp;&nbsp;&nbsp;
+                    <li><a href="login"><span class="fa fa-sign-in"></span> Login</a></li>
                 </ul>
             </div>
         </nav>
@@ -77,7 +77,7 @@
                             <input type="text" name="title" id="title" class="form-control" />
                         </div>
                     </div>
-                    <!--                            <div class="form-group row">
+                    <!--<div class="form-group row">
                                                     <label for="file" class="col-sm-2 control-label">Title Picture: </label>&nbsp;
                                                     <div class="col-sm-9">
                                                         <input type="file" name="file" id="file">&nbsp;
@@ -91,14 +91,17 @@
                             </textarea>
                         </div>
                     </div>
-                    <!--                            <div class="form-group row">
-                                                    <label for="tags" class="col-sm-2 control-label">Hashtags:</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" name="tag" id="tag" class="form-control" />
-                                                        <br>
-                                                            <button type="submit" class="btn btn-info">Add Hashtags</button>
-                                                    </div>
-                                                </div>-->
+                    <div class="form-group row">
+                        <label for="tags" class="col-sm-2 control-label">Hashtags:</label>
+                        <div class="col-9">
+                            <select multiple id="hashtags" name="hashtagId" class="form-control">
+                                <option th:each="hashtag : ${hashtags}"
+                                        th:value="${hashtag.hashtagId}"
+                                        th:text="${hashtag.name}">Hashtag Name</option>
+                            </select><br>
+                                <div class="myDiv" ><a href="hashtag" class="btn bg-dark" role="button">Add New Hashtag</a></div>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label for="expiryDate" class="col-sm-2 control-label">Expiry Date: </label>
                         <div class="col-sm-9">
@@ -106,13 +109,18 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="verified">Verify: </label>
-                        <input type="checkbox" id="verified" name="verified"/>
-                        <label for="staticPage">Static Page: </label>
-                        <input type="checkbox" id="staticPage" name="staticPage"/>
+                        <label for="blogCreated" class="col-sm-2 control-label">Blog Created: </label>
+                        <div class="col-sm-9">
+                            <input type="date" name="blogCreated" id="blogCreated" class="form-control" />
+                        </div>
                     </div>
-
-                    <button type="submit" class="btn-info">Save</button>
+                    <!--                    <div class="form-group row">
+                                            <label for="expiryDate" class="col-sm-2 control-label">Expiry Date: </label>
+                                            <div class="col-sm-9">
+                                                <input type="date" name="expiryDate" id="expiryDate" class="form-control" />
+                                            </div>
+                                        </div>-->
+                    <button type="submit" class="btn-dark">Save</button>
                     <!--<button type="submit" class="btn-info">Post</button>-->
                 </form>
 

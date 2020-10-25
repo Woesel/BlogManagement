@@ -167,6 +167,16 @@ public class BlogDaoDB implements BlogDao {
 
         }
     }
+    //Get all the blogs related to the hashtag
+    public List<Blog> getBlogsByHashtag(int hashtagId) {
+        final String GET_BLOGS_BY_HASHTAG = "SELECT b.* FROM Blog b JOIN Blod_Hashtag bh ON bh.blogId = b.blogId WHERE bh.hashtagId=? ";
+
+        List<Blog> blogs = jdbc.query(GET_BLOGS_BY_HASHTAG, new BlogMapper(), hashtagId);
+        for (Blog blog : blogs) {
+            associateTag(blogs);
+        }
+        return blogs;
+    }
 
     /////////////////////////////////////////////////////////////
     ////////////MAPPER

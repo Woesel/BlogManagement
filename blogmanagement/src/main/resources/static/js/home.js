@@ -28,3 +28,7 @@ $(document).ready(function () {
 
 });
 
+function searchBySuperpower(id) {
+    window.location.href = "/searchResult?hashtagId=" + id;
+
+}
