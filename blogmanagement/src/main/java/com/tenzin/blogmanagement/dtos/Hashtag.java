@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 public class Hashtag {
 
     private int hashtagId;
-     @NotBlank(message = "Hashtag name must not be empty.")
+    @NotBlank(message = "Hashtag name must not be empty.")
     @Size(max = 45, message = "Hashtag name must be less than 45 characters.")
     private String name;
 

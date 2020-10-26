@@ -87,13 +87,19 @@ public class AdminController {
     }
 
     @GetMapping("/editUser")
-    public String editUserDisplay(Model model, Integer id) {
+    public String editUserDisplay(Model model, Integer id, Integer error) {
         User user = userDao.getUserById(id);
 
         List<Role> roles = roleDao.getAllRoles();
 
         model.addAttribute("user", user);
         model.addAttribute("roles", roles);
+
+        if (error != null) {
+            if (error == 1) {
+                model.addAttribute("error", "Password did not match, password was not updated.");
+            }
+        }
 
         return "editUser";
 
@@ -119,6 +125,18 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    
+    @PostMapping("editPassword")
+    public String editPassword(Integer id, String password, String confirmPassword) {
+        User user = userDao.getUserById(id);
+
+        if (password.equals(confirmPassword)) {
+            user.setPassword(encoder.encode(password));
+//            user.setRoles(roles);
+            userDao.updateUser(user);
+            return "redirect:/admin";
+        } else {
+            return "redirect:/editUser?id=" + id + "&error=1";
+        }
+    }
 
 }

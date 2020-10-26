@@ -34,15 +34,11 @@
 
 
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
-                </form>
+                <!--                <form class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
+                                </form>-->
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="signup"><span class="fa fa-user"></span> Sign Up</a></li>&nbsp;&nbsp;&nbsp;
-                    <li><a href="login"><span class="fa fa-sign-in"></span> Login</a></li>
-                </ul>
             </div>
         </nav>
 
@@ -69,7 +65,7 @@
             <div class="col-9 text-center m-3">
                 <form class= "form-horizontal" action="editBlog" method="POST">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                     <input type="hidden" name="id" th:value ="${blog.blogId}"/>
+                    <input type="hidden" name="id" th:value ="${blog.blogId}"/>
                     <div class="form-group row">
                         <label for="title" class="col-sm-2 control-label">Title</label>
                         <div class="col-sm-9">
@@ -90,6 +86,14 @@
                                            <p th:utext="${blog.content}"></p>
                             </textarea>
                         </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="verified" class="col-3 col-form-label">Verify:</label>
+
+                        <input type="checkbox"  
+                               id="verified"
+                               name="verified"
+                               th:checked="${blog.verified}"/>
                     </div>
                     <div class="form-group row">
                         <label for="tags" class="col-sm-2 control-label">Hashtags:</label>

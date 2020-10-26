@@ -61,7 +61,7 @@ body {
     height: 30px;
     width: 50px;
 }
-h5,h3{
+h5,h3, #addUserButton{
     text-align: center;
 }
 

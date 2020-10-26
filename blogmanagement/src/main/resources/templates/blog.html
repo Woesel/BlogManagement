@@ -27,7 +27,7 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Blog</a>
                     </li>
-                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <div sec:authorize="hasRole('ROLE_ADMIN') OR hasRole('ROLE_MANAGER') ">
                         <li class="nav-item">
                             <a class="nav-link" href="admin">Admin</a>
                         </li>
@@ -35,15 +35,11 @@
 
 
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
-                </form>
+                <!--                <form class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
+                                </form>-->
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="signup"><span class="fa fa-user"></span> Sign Up</a></li>&nbsp;&nbsp;&nbsp;
-                    <li><a href="login"><span class="fa fa-sign-in"></span> Login</a></li>
-                </ul>
             </div>
         </nav>
         <div class="container">
@@ -71,7 +67,14 @@
                 <div id="blogpost" th:each="blog: ${blogs}">
                     <div th:text="${blog.title}"> Title</div>
                     <div th:utext="${blog.content}"> Content</div>
-                    <div><a href="#" th:href="@{/editBlog(id=${blog.blogId})}">Edit</a></div>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <div>
+                            <a href="#" th:href="@{/editBlog(id=${blog.blogId})}"><span class="fa fa-pencil"></span></a>&nbsp;&nbsp;&nbsp;|
+
+                            <a href="#" th:href="@{/deleteBlog(id=${blog.blogId})}"><span class="fa fa-trash"></span></a>
+                        </div>
+
+                    </div>
                     <div>
                         Date posted: 
                     </div>
@@ -82,7 +85,7 @@
 
 
 
-            <div sec:authorize="isAuthenticated()">
+            <div sec:authorize="hasRole('ROLE_ADMIN') OR hasRole('ROLE_MANAGER') ">
                 <div class="tinymce">
                     <a href="createBlog" class="btn bg-light" role="button">Create New Blog</a>
                 </div> 

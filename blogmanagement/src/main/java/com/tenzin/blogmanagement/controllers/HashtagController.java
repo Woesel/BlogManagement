@@ -33,7 +33,7 @@ public class HashtagController {
         List<Hashtag> tags = hashtagDao.getAllHashtags();
 
         model.addAttribute("tags", tags);
-//        model.addAttribute("errors", violations);
+        model.addAttribute("errors", violations);
         return "hashtag";
     }
 
@@ -41,13 +41,13 @@ public class HashtagController {
     public String addHashtag(String name) {
         Hashtag hashtag = new Hashtag();
         hashtag.setName(name);
-//        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
-//        violations = validate.validate(hashtag);
-//
-//        if (violations.isEmpty()) {
-//            hashtagDao.addHashtag(hashtag);
-//        }
-        hashtagDao.addHashtag(hashtag);
+        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
+        violations = validate.validate(hashtag);
+
+        if (violations.isEmpty()) {
+            hashtagDao.addHashtag(hashtag);
+        }
+//        hashtagDao.addHashtag(hashtag);
         
         return "redirect:/createBlog";
     }
