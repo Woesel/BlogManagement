@@ -1,7 +1,7 @@
-body {
+body, .card {
     background-color: #CCCCCC;
 
-    font-family: 'Comic Sans MS';
+    font-family: 'Helvitica';
 
 }
 
@@ -61,7 +61,7 @@ body {
     height: 30px;
     width: 50px;
 }
-h5,h3, #addUserButton{
+h5,h3, #addUserButton,#blogTitle{
     text-align: center;
 }
 

@@ -2,7 +2,9 @@ package com.tenzin.blogmanagement.controllers;
 
 import com.tenzin.blogmanagement.daos.BlogDao;
 import com.tenzin.blogmanagement.daos.BlogDaoDB;
+import com.tenzin.blogmanagement.daos.HashtagDao;
 import com.tenzin.blogmanagement.dtos.Blog;
+import com.tenzin.blogmanagement.dtos.Hashtag;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -24,15 +27,20 @@ public class HomeController {
     @Autowired
     BlogDaoDB blogDB;
 
+    @Autowired
+    HashtagDao hashtagDao;
+
     @GetMapping({"/", "/home"})
     public String displayHomePage(Model model) {
+
+        List<Hashtag> hashtags = hashtagDao.getAllHashtags();
 
         List<Blog> blogs = blogDao.getAllBlogs();
         List<Blog> verifiedBlogs = new ArrayList<>();
 
         try {
             for (Blog blog : blogs) {
-                if (blog.isVerified()) {
+                if (blog.isVerified() && blog.isStaticPage()) {
                     verifiedBlogs.add(blog);
                 }
 
@@ -44,27 +52,27 @@ public class HomeController {
 
 //        model.addAttribute("blogs", blogs);
         model.addAttribute("blogs", verifiedBlogs);
+        model.addAttribute("hashtags", hashtags);
 
         return "home";
     }
 
-//    @GetMapping("searchResult")
-//    public String searchByHashtag(HttpServletRequest request, Model model) {
-//        
-//        int id = Integer.parseInt(request.getParameter("hashtagId"));
-//
-//        List<Blog> blogsByHashtag = blogDB.getBlogsByHashtag(id);
-////        List<Blog> allBlogs = blogDao.getAllBlogs();
-////
-////        for (Blog allBlog : allBlogs) {
-////            if (allBlog.getTags().contains(hashtagDao.getHashtagById(id))) {
-////                blogsByHashtag.add(allBlog);
-////            }
-////        }
-//
-//        model.addAttribute("blogs", blogsByHashtag);
-//
-//        return "searchResult";
-//
-//    }
+    @GetMapping("searchResult")
+    public String searchResult(HttpServletRequest request, Model model) {
+
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        List<Hashtag> hashtags = hashtagDao.getAllHashtags();
+
+        List<Blog> blogsByHashtag = blogDB.getBlogsByHashtag(id);
+
+        System.out.println(blogsByHashtag);
+
+        model.addAttribute("blogs", blogsByHashtag);
+        model.addAttribute("hashtags", hashtags);
+
+        return "searchResult";
+
+    }
+
 }

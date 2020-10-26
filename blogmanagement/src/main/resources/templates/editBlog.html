@@ -96,6 +96,14 @@
                                th:checked="${blog.verified}"/>
                     </div>
                     <div class="form-group row">
+                        <label for="staticPage" class="col-3 col-form-label">Static: </label>
+
+                        <input type="checkbox"  
+                               id="staticPage"
+                               name="staticPage"
+                               th:checked="${blog.staticPage}"/>
+                    </div>
+                    <div class="form-group row">
                         <label for="tags" class="col-sm-2 control-label">Hashtags:</label>
                         <div class="col-9">
                             <select multiple id="hashtag" name="hashtagId" class="form-control">

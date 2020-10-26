@@ -39,7 +39,9 @@ public class HashtagController {
 
     @PostMapping("addHashtag")
     public String addHashtag(String name) {
+
         Hashtag hashtag = new Hashtag();
+
         hashtag.setName(name);
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
         violations = validate.validate(hashtag);
@@ -48,8 +50,8 @@ public class HashtagController {
             hashtagDao.addHashtag(hashtag);
         }
 //        hashtagDao.addHashtag(hashtag);
-        
-        return "redirect:/createBlog";
+
+        return "redirect:/hashtag";
     }
 
     @GetMapping("deleteHashtag")

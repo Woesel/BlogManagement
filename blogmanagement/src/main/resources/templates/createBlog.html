@@ -34,10 +34,10 @@
 
 
                 </ul>
-<!--                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
-                </form>-->
+                <!--                <form class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>&nbsp;&nbsp;&nbsp;
+                                </form>-->
 
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="signup"><span class="fa fa-user"></span> Sign Up</a></li>&nbsp;&nbsp;&nbsp;
@@ -67,6 +67,11 @@
                 </form>
             </div>
             <div class="col-9 text-center m-3">
+                <div class="col-12 m-1 text-center" 
+                     th:if="${!errors.isEmpty()}">
+                    <p class="alert alert-danger" th:each="error : ${errors}" 
+                       th:text="${error.message}">Error message</p>
+                </div>
 
                 <form class= "form-horizontal" action="createBlog" method="POST">
                     <input type="hidden" 
@@ -124,11 +129,7 @@
                     <button type="submit" class="btn-dark">Save</button>
                     <!--<button type="submit" class="btn-info">Post</button>-->
                 </form>
-                <div class="col-12 m-1 text-center" 
-                     th:if="${!errors.isEmpty()}">
-                    <p class="alert alert-danger" th:each="error : ${errors}" 
-                       th:text="${error.message}">Error message</p>
-                </div>
+
             </div>
         </div>
 

@@ -21,8 +21,8 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="home">Home</a>
                     </li>
                     <div sec:authorize="isAuthenticated()">
                         <li class="nav-item">
@@ -39,77 +39,28 @@
                                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                                         <button id="searchByTags" class="btn btn-outline-success my-2 my-sm-0" type="#">Search</button>&nbsp;&nbsp;&nbsp;
                                 </form>-->
-                <div class="login" sec:authorize="isAuthenticated()">
-                    <span class="navbar-text">
-                        <form class="form-inline" 
-                              method="POST" 
-                              action="/logout">
-                            <input type="hidden" 
-                                   th:name="${_csrf.parameterName}" 
-                                   th:value="${_csrf.token}"/>
-                            <button class="btn btn-link" 
-                                    id="submit" 
-                                    type="submit" style="color:white"><span class="fa fa-sign-out">Log Out</span></button>
-                        </form>
-                    </span>
-                </div>
-            </div>
-            <div class="login" sec:authorize="isAnonymous()">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="signup"><span class="fa fa-user"></span> Sign Up</a></li>&nbsp;&nbsp;&nbsp;
-                    <li><a href="login"><span class="fa fa-sign-in"></span> Login</a></li>
-                </ul>
-            </div>
             </div>
         </nav>
-
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">List of hashtags</h5>
 
                 <div th:each="hashtag : ${hashtags}">
-                    <input type="hidden" 
-                           th:name="${_csrf.parameterName}" 
-                           th:value="${_csrf.token}"/>
-                    <span><a  
-                            th:href="@{/searchResult(id=${hashtag.hashtagId})}" 
-                            th:text="${hashtag.name}">Hashtag Name</a></span>
+                    <span><a href="searchResult" 
+                             th:href="@{/searchResult(id=${hashtag.hashtagId})}" 
+                             th:text="${hashtag.name}">Hashtag Name</a></span>
                 </div>
 
             </div>
         </div>
+
         <div class="container">
 
-            <h3>Home Page</h3>
+            <h3>Search Result</h3>
 
-
-            <!-- The Modal -->
-            <div id="myModal" class="modal">
-
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h5>Disclaimer<br/>
-                        <img id="smiley" src="https://pixy.org/src/109/1090092.png">
-                    </h5>
-                    <p>These are my personal thoughts, beliefs, and perspectives of the world. This is not representative of any
-                        employers, planning committees, clients, or any other associations tied with me and my name. Every person has 
-                        an opinion on something, and these are mine. We may end up having to agree to disagree, and I can guarantee you that
-                        not everyone will feel the way that I do.<br/><br/>
-
-                        I may post happy things or sad things, run-of-the-mill things or controversial things. Whatever I post is most
-                        likely posted straight out of my mind, as I write stream of conscious style.<br/><br/>
-
-                        If you have any questions for me personally, please feel free to email me at my first name at this domain.<br/>
-
-                        - Sarah "sadukie" Dutkiewicz
-                    </p>
-                </div>
-
-            </div>
             <div class="jumbotron">
 
-                <div sec:authorize="isAuthenticated()">
+<!--                <div sec:authorize="isAuthenticated()">
                     <form class="form-inline" 
                           method="POST" 
                           action="/logout">
@@ -120,8 +71,11 @@
                             Hello : <span th:text="${#authentication.name}">
                             </span>&nbsp;&nbsp;&nbsp;|
                         </label>
+                        <button class="btn btn-link" 
+                                id="submit" 
+                                type="submit"><span class="fa fa-sign-out">Logout</button>
                     </form>
-                </div>
+                </div>-->
 
 
 
@@ -134,7 +88,6 @@
                         <div th:utext="${blog.content}"> Content</div><br/>
                         <div>
                             <h6>Date posted: <div th:text="${blog.blogPosted}"></div></h6>
-                            <h6>Posted by: <div th:text="${blog.user.userName}"></div></h6>
                         </div>
                         <hr class="bg-dark">
                     </div>
@@ -146,8 +99,7 @@
 
             </div>
 
-            <div sec:authorize="isAuthenticated()">
-            </div>
+            
         </div>
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

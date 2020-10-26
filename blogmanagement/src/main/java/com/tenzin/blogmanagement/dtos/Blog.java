@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -12,7 +14,10 @@ import java.util.Objects;
 public class Blog {
 
     private int blogId;
+    @NotBlank(message = "Title must not be empty.")
+    @Size(max = 45, message = "Title must be less than 45 characters.")
     private String title;
+    @NotBlank(message = "Content must not be empty.")
     private String content;
     private boolean verified;
     private boolean staticPage;

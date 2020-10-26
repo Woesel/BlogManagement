@@ -80,6 +80,7 @@ public class BlogController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName = auth.getName();
+
         User user = userDao.getUserByUsername(userName);
 
         LocalDate date;
@@ -97,6 +98,7 @@ public class BlogController {
         blog.setTitle(title);
         blog.setContent(content);
         blog.setVerified(false);
+        blog.setStaticPage(false);
         blog.setBlogPosted(LocalDate.now().plusYears(1));
         blog.setExpiryDate(date);
         blog.setBlogCreated(LocalDate.now());
@@ -109,29 +111,16 @@ public class BlogController {
         Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
         violations = validate.validate(blog);
 
-        blogDao.addBlog(blog);
+        if (violations.isEmpty()) {
 
-        return "redirect:/blog";
+            blogDao.addBlog(blog);
+            violations.clear();
+            return "redirect:/blog";
+        }
+
+        return "redirect:/createBlog";
     }
 
-//    @GetMapping("searchResult")
-//    public String searchByHashtag(HttpServletRequest request, Model model) {
-//        int id = Integer.parseInt(request.getParameter("hashtagId"));
-//        
-//        List<Blog> blogsByHashtag = blogDB.getBlogsByHashtag(id);
-////        List<Blog> allBlogs = blogDao.getAllBlogs();
-////
-////        for (Blog allBlog : allBlogs) {
-////            if (allBlog.getTags().contains(hashtagDao.getHashtagById(id))) {
-////                blogsByHashtag.add(allBlog);
-////            }
-////        }
-//
-//        model.addAttribute("blogs", blogsByHashtag);
-//        
-//        return "searchResult";
-//        
-//    }
     @GetMapping("editBlog")
     public String editBlog(Integer id, Model model) {
 
@@ -146,7 +135,7 @@ public class BlogController {
     }
 
     @PostMapping("editBlog")
-    public String performEditBlog(HttpServletRequest request, Boolean verified, Integer id) {
+    public String performEditBlog(HttpServletRequest request, Boolean verified, Boolean staticPage, Integer id) {
 
         String[] hashtagIds = request.getParameterValues("hashtagId");
 
@@ -156,13 +145,19 @@ public class BlogController {
                 hashtags.add(hashtagDao.getHashtagById(Integer.parseInt(hashtagId)));
             }
         }
-        
+
         Blog blog = blogDao.getBlogById(id);
 
         if (verified != null) {
             blog.setVerified(verified);
         } else {
             blog.setVerified(false);
+        }
+
+        if (staticPage != null) {
+            blog.setStaticPage(true);
+        } else {
+            blog.setStaticPage(false);
         }
 
         String title = request.getParameter("title");

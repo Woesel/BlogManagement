@@ -42,7 +42,7 @@ CREATE TABLE `Blog`
 (
  `blogId`     INT PRIMARY KEY NOT NULL AUTO_INCREMENT ,
  `title`      varchar(45) NOT NULL ,
- `content`    text NOT NULL ,
+ `content`    LONGTEXT NOT NULL ,
  `verified`   bit NOT NULL ,
  `staticPage` bit NOT NULL ,
  `blogPosted` date NOT NULL,
